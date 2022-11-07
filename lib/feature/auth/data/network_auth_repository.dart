@@ -4,16 +4,20 @@ import 'package:it_project/feature/auth/data/dto/user_dto.dart';
 import 'package:it_project/feature/auth/domian/auth_repository.dart';
 
 @Injectable(as: AuthRepositoty)
-@prod
 class NetworkAuthRepository implements AuthRepositoty {
   final DioContainer dioContainer;
 
   NetworkAuthRepository(this.dioContainer);
 
   @override
-  Future getProfile() {
-    // TODO: implement getProfile
-    throw UnimplementedError();
+  Future getProfile() async {
+    try {
+      final response = await dioContainer.dio.get("/auth/user");
+
+      return UserDTO.fromJson(response.data["data"]).toEntity();
+    } catch (_) {
+      rethrow;
+    }
   }
 
   @override

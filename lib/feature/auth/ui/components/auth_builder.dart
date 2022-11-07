@@ -20,8 +20,8 @@ class AuthBuilder extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       builder: (context, state) {
         return state.when(
-          notAuthorised: () => isNotAuthorized(context),
-          authorised: (userEntity) => isAuthorized(context, userEntity, this),
+          notAuthorized: () => isNotAuthorized(context),
+          authorized: (userEntity) => isAuthorized(context, userEntity, this),
           waiting: () => isWaiting(context),
           error: (error) => isNotAuthorized(context),
         );

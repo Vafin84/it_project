@@ -14,7 +14,7 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Main Screen"),
         actions: [
-          IconButton(onPressed: () => context.read<AuthCubit>().refreshToken(), icon: const Icon(Icons.refresh)),
+          IconButton(onPressed: () => context.read<AuthCubit>().getProfile(), icon: const Icon(Icons.refresh)),
           IconButton(onPressed: () => context.read<AuthCubit>().logOut(), icon: const Icon(Icons.logout)),
         ],
       ),

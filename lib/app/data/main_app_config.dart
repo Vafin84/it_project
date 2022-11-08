@@ -5,7 +5,7 @@ import 'package:it_project/app/domain/app_config.dart';
 @prod
 class ProdAppConfig implements AppConfig {
   @override
-  String get baseUrl => "http://62.109.24.168";
+  String get baseUrl => "http://188.120.225.54";
 
   @override
   String get host => Environment.prod;

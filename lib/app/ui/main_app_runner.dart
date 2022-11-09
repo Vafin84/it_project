@@ -20,14 +20,8 @@ class MainAppRunner implements AppRunner {
   @override
   Future<void> run(AppBuilder appBuilder) async {
     var storageDirectory = await getApplicationDocumentsDirectory();
-    final storage = await HydratedStorage.build(storageDirectory: storageDirectory);
-    HydratedBlocOverrides.runZoned(
-      () async {
-        await preloadData();
-        runApp(appBuilder.buildApp());
-      },
-      storage: storage,
-    );
+    HydratedBloc.storage = await HydratedStorage.build(storageDirectory: storageDirectory);
+    await preloadData();
     runApp(appBuilder.buildApp());
   }
 }

@@ -1,19 +1,19 @@
 import 'package:injectable/injectable.dart';
-import 'package:it_project/app/data/dio_container.dart';
+import 'package:it_project/app/domain/app_api.dart';
 import 'package:it_project/feature/auth/data/dto/user_dto.dart';
 import 'package:it_project/feature/auth/domian/auth_repository.dart';
+import 'package:it_project/feature/auth/domian/entities/user_entity/user_entity.dart';
 
 @Injectable(as: AuthRepositoty)
 class NetworkAuthRepository implements AuthRepositoty {
-  final DioContainer dioContainer;
+  final AppApi api;
 
-  NetworkAuthRepository(this.dioContainer);
+  NetworkAuthRepository(this.api);
 
   @override
-  Future getProfile() async {
+  Future<UserEntity> getProfile() async {
     try {
-      final response = await dioContainer.dio.get("/auth/user");
-
+      final response = await api.getProfile();
       return UserDTO.fromJson(response.data["data"]).toEntity();
     } catch (_) {
       rethrow;
@@ -27,9 +27,9 @@ class NetworkAuthRepository implements AuthRepositoty {
   }
 
   @override
-  Future refreshToken({String? refreshToken}) async {
+  Future<UserEntity> refreshToken({String? refreshToken}) async {
     try {
-      final response = await dioContainer.dio.post("/auth/token/$refreshToken");
+      final response = await api.refreshToken(refreshToken: refreshToken);
 
       return UserDTO.fromJson(response.data["data"]).toEntity();
     } catch (_) {
@@ -38,13 +38,9 @@ class NetworkAuthRepository implements AuthRepositoty {
   }
 
   @override
-  Future singIn({required String username, required String password}) async {
+  Future<UserEntity> singIn({required String username, required String password}) async {
     try {
-      final response = await dioContainer.dio.post(
-        "/auth/token",
-        data: {"username": username, "password": password},
-      );
-
+      final response = await api.singIn(username: username, password: password);
       return UserDTO.fromJson(response.data["data"]).toEntity();
     } catch (_) {
       rethrow;
@@ -52,13 +48,9 @@ class NetworkAuthRepository implements AuthRepositoty {
   }
 
   @override
-  Future singUp({required String username, required String password, required String email}) async {
+  Future<UserEntity> singUp({required String username, required String password, required String email}) async {
     try {
-      final response = await dioContainer.dio.put(
-        "/auth/token",
-        data: {"username": username, "password": password, "email": email},
-      );
-
+      final response = await api.singUp(username: username, password: password, email: email);
       return UserDTO.fromJson(response.data["data"]).toEntity();
     } catch (_) {
       rethrow;

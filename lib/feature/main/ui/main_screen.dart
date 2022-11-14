@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:it_project/feature/auth/domian/auth_state/auth_cubit.dart';
 import 'package:it_project/feature/auth/domian/entities/user_entity/user_entity.dart';
+import 'package:it_project/feature/auth/ui/user_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key, required this.userEntity}) : super(key: key);
@@ -14,8 +13,14 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Main Screen"),
         actions: [
-          IconButton(onPressed: () => context.read<AuthCubit>().getProfile(), icon: const Icon(Icons.refresh)),
-          IconButton(onPressed: () => context.read<AuthCubit>().logOut(), icon: const Icon(Icons.logout)),
+          IconButton(
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const UserScreen(),
+                    ),
+                  ),
+              icon: const Icon(Icons.account_box)),
         ],
       ),
       body: Padding(

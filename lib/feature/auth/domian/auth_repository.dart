@@ -1,23 +1,25 @@
+import 'package:it_project/feature/auth/domian/entities/user_entity/user_entity.dart';
+
 abstract class AuthRepositoty {
-  Future<dynamic> singUp({
+  Future<UserEntity> singUp({
     required String username,
     required String password,
     required String email,
   });
 
-  Future<dynamic> singIn({
+  Future<UserEntity> singIn({
     required String username,
     required String password,
   });
 
-  Future<dynamic> getProfile();
+  Future<UserEntity> getProfile();
 
-  Future<dynamic> userUpdate({
+  Future<UserEntity> userUpdate({
     String? username,
     String? email,
   });
 
-  Future<dynamic> passwordUpdate({
+  Future<String> passwordUpdate({
     required String oldPassword,
     required String newPassword,
   });

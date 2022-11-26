@@ -25,6 +25,8 @@ mixin _$UserEntity {
   String get email => throw _privateConstructorUsedError;
   String? get accessToken => throw _privateConstructorUsedError;
   String? get refreshToken => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  AsyncSnapshot<dynamic>? get userState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,8 @@ abstract class $UserEntityCopyWith<$Res> {
       String username,
       String email,
       String? accessToken,
-      String? refreshToken});
+      String? refreshToken,
+      @JsonKey(ignore: true) AsyncSnapshot<dynamic>? userState});
 }
 
 /// @nodoc
@@ -60,6 +63,7 @@ class _$UserEntityCopyWithImpl<$Res> implements $UserEntityCopyWith<$Res> {
     Object? email = freezed,
     Object? accessToken = freezed,
     Object? refreshToken = freezed,
+    Object? userState = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -82,6 +86,10 @@ class _$UserEntityCopyWithImpl<$Res> implements $UserEntityCopyWith<$Res> {
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      userState: userState == freezed
+          ? _value.userState
+          : userState // ignore: cast_nullable_to_non_nullable
+              as AsyncSnapshot<dynamic>?,
     ));
   }
 }
@@ -98,7 +106,8 @@ abstract class _$$_UserEntityCopyWith<$Res>
       String username,
       String email,
       String? accessToken,
-      String? refreshToken});
+      String? refreshToken,
+      @JsonKey(ignore: true) AsyncSnapshot<dynamic>? userState});
 }
 
 /// @nodoc
@@ -118,6 +127,7 @@ class __$$_UserEntityCopyWithImpl<$Res> extends _$UserEntityCopyWithImpl<$Res>
     Object? email = freezed,
     Object? accessToken = freezed,
     Object? refreshToken = freezed,
+    Object? userState = freezed,
   }) {
     return _then(_$_UserEntity(
       id: id == freezed
@@ -140,6 +150,10 @@ class __$$_UserEntityCopyWithImpl<$Res> extends _$UserEntityCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      userState: userState == freezed
+          ? _value.userState
+          : userState // ignore: cast_nullable_to_non_nullable
+              as AsyncSnapshot<dynamic>?,
     ));
   }
 }
@@ -152,7 +166,8 @@ class _$_UserEntity implements _UserEntity {
       required this.username,
       required this.email,
       this.accessToken,
-      this.refreshToken});
+      this.refreshToken,
+      @JsonKey(ignore: true) this.userState});
 
   factory _$_UserEntity.fromJson(Map<String, dynamic> json) =>
       _$$_UserEntityFromJson(json);
@@ -167,10 +182,13 @@ class _$_UserEntity implements _UserEntity {
   final String? accessToken;
   @override
   final String? refreshToken;
+  @override
+  @JsonKey(ignore: true)
+  final AsyncSnapshot<dynamic>? userState;
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, username: $username, email: $email, accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'UserEntity(id: $id, username: $username, email: $email, accessToken: $accessToken, refreshToken: $refreshToken, userState: $userState)';
   }
 
   @override
@@ -184,7 +202,8 @@ class _$_UserEntity implements _UserEntity {
             const DeepCollectionEquality()
                 .equals(other.accessToken, accessToken) &&
             const DeepCollectionEquality()
-                .equals(other.refreshToken, refreshToken));
+                .equals(other.refreshToken, refreshToken) &&
+            const DeepCollectionEquality().equals(other.userState, userState));
   }
 
   @JsonKey(ignore: true)
@@ -195,7 +214,8 @@ class _$_UserEntity implements _UserEntity {
       const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(accessToken),
-      const DeepCollectionEquality().hash(refreshToken));
+      const DeepCollectionEquality().hash(refreshToken),
+      const DeepCollectionEquality().hash(userState));
 
   @JsonKey(ignore: true)
   @override
@@ -212,11 +232,13 @@ class _$_UserEntity implements _UserEntity {
 
 abstract class _UserEntity implements UserEntity {
   const factory _UserEntity(
-      {required final String id,
-      required final String username,
-      required final String email,
-      final String? accessToken,
-      final String? refreshToken}) = _$_UserEntity;
+          {required final String id,
+          required final String username,
+          required final String email,
+          final String? accessToken,
+          final String? refreshToken,
+          @JsonKey(ignore: true) final AsyncSnapshot<dynamic>? userState}) =
+      _$_UserEntity;
 
   factory _UserEntity.fromJson(Map<String, dynamic> json) =
       _$_UserEntity.fromJson;
@@ -231,6 +253,9 @@ abstract class _UserEntity implements UserEntity {
   String? get accessToken;
   @override
   String? get refreshToken;
+  @override
+  @JsonKey(ignore: true)
+  AsyncSnapshot<dynamic>? get userState;
   @override
   @JsonKey(ignore: true)
   _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>

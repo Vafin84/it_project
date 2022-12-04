@@ -14,11 +14,20 @@ class PostCubit extends HydratedCubit<PostState> {
   final PostRepo repo;
 
   Future<void> fetchPost() async {
+    emit(state.copyWith(asyncSnapshot: const AsyncSnapshot.waiting()));
     await repo.fetchPosts().then((value) {
       final Iterable iterable = value;
       emit(state.copyWith(
           postList: iterable.map((e) => PostEntity.fromJson(e)).toList(),
           asyncSnapshot: const AsyncSnapshot.withData(ConnectionState.done, true)));
+    }).catchError((error) {
+      addError(error);
+    });
+  }
+
+  Future<void> createPost(Map args) async {
+    await repo.createPosts(args).then((value) {
+      fetchPost();
     }).catchError((error) {
       addError(error);
     });

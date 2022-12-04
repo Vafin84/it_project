@@ -101,4 +101,16 @@ class DioAppApi implements AppApi {
       rethrow;
     }
   }
+
+  @override
+  Future createPosts(Map args) {
+    try {
+      return dio.post("/data/posts", data: {
+        "name": args["name"],
+        "content": args["content"],
+      });
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

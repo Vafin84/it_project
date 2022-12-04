@@ -17,4 +17,14 @@ class NetPostRepo implements PostRepo {
       rethrow;
     }
   }
+
+  @override
+  Future<String> createPosts(Map args) async {
+    try {
+      final Response response = await api.createPosts(args);
+      return response.data["message"];
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

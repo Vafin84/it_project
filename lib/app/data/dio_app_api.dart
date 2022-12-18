@@ -9,13 +9,18 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 @Singleton(as: AppApi)
 class DioAppApi implements AppApi {
   late final Dio dio;
+  late final Dio dioTokens;
   DioAppApi(AppConfig appConfig) {
     final options = BaseOptions(
       baseUrl: appConfig.baseUrl,
       connectTimeout: 15000,
     );
     dio = Dio(options);
-    if (kDebugMode) dio.interceptors.add(PrettyDioLogger());
+    dioTokens = Dio(options);
+    if (kDebugMode) {
+      dio.interceptors.add(PrettyDioLogger());
+      dioTokens.interceptors.add(PrettyDioLogger());
+    }
     dio.interceptors.add(AuthInterceptor());
   }
 
@@ -40,7 +45,7 @@ class DioAppApi implements AppApi {
   @override
   Future<Response> refreshToken({String? refreshToken}) {
     try {
-      return dio.post("/auth/token/$refreshToken");
+      return dioTokens.post("/auth/token/$refreshToken");
     } catch (_) {
       rethrow;
     }
@@ -90,7 +95,7 @@ class DioAppApi implements AppApi {
 
   @override
   Future fethc(RequestOptions requestOptions) {
-    return dio.fetch(requestOptions);
+    return dioTokens.fetch(requestOptions);
   }
 
   @override
